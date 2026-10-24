@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Одины ❤️</title>
+    <!-- Подключаем Tailwind CSS для красивой и быстрой верстки -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключаем красивые шрифты от Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Базовые настройки */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Настройка шрифта для письма */
+        .handwritten {
+            font-family: 'Caveat', cursive;
+            line-height: 1.4;
+        }
+
+        /* Анимация летящих сердечек */
+        .heart {
+            position: fixed;
+            bottom: -10vh;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(360deg) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Плавные переходы для экранов */
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-out, visibility 1s ease-out;
+        }
+
+        .fade-in {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+        }
+
+        #main-content {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out, visibility 1.5s;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Анимация пульсации для кнопки-конверта */
+        @keyframes softPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 10px 25px rgba(255, 105, 180, 0.5); }
+        }
+        .btn-pulse {
+            animation: softPulse 2.5s infinite;
+        }
+
+        /* Стили для письма */
+        .letter-paper {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(255, 182, 193, 0.4);
+        }
+
+        /* Поэтапное появление абзацев */
+        .paragraph-hide {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+        }
+        .paragraph-show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased selection:bg-pink-300 selection:text-white">
+
+    <!-- Контейнер для сердечек (генерируются через JS) -->
+    <div id="hearts-container" class="absolute inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- Стартовый экран (Конверт) -->
+    <div id="intro-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/30 backdrop-blur-sm transition-all duration-1000">
+        <button onclick="openLetter()" class="btn-pulse bg-gradient-to-r from-pink-400 to-pink-300 text-white rounded-2xl px-10 py-8 flex flex-col items-center justify-center gap-3 w-full max-w-sm border border-pink-200 cursor-pointer touch-manipulation">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <div class="text-center">
+                <span class="block text-2xl font-semibold mb-1 drop-shadow-sm">Для Одины</span>
+                <span class="block text-sm font-light opacity-90">Нажми, чтобы открыть 💌</span>
+            </div>
+        </button>
+    </div>
+
+    <!-- Основной экран (Письмо) -->
+    <div id="main-content" class="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
+        <div class="letter-paper w-full max-w-2xl rounded-3xl p-8 sm:p-12 border border-pink-100 relative overflow-hidden">
+            <!-- Декоративный элемент на фоне письма -->
+            <svg class="absolute top-[-20%] right-[-10%] w-64 h-64 text-pink-50 opacity-50 transform rotate-12 pointer-events-none" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+            </svg>
+
+            <div class="relative z-10 handwritten text-2xl sm:text-3xl md:text-4xl text-[#4a3f45]">
+                <p class="paragraph-hide mb-6 sm:mb-8 font-semibold text-pink-500 drop-shadow-[0_1px_1px_rgba(255,255,255,1)]">
+                    Моя милая, нежная Одина...
+                </p>
+                
+                <p class="paragraph-hide mb-5 sm:mb-7">
+                    Я влюбился в тебя еще в пятом классе. Тогда я был просто мальчишкой, которому не хватало смелости подойти и признаться в своих чувствах, но каждый день я хранил этот свет внутри себя.
+                </p>
+
+                <p class="paragraph-hide mb-5 sm:mb-7">
+                    Как же я счастлив, что именно в этом году наши пути наконец-то сошлись по-настоящему, и мы смогли открыть друг другу сердца. Это самое прекрасное, что случалось со мной.
+                </p>
+
+                <p class="paragraph-hide mb-5 sm:mb-7">
+                    Ты — моя радость, моя душа и мое самое большое чудо. Теперь, когда мы вместе, я хочу только одного: быть с тобой всегда, каждый день, преодолевая всё вместе.
+                </p>
+
+                <p class="paragraph-hide mt-10 text-right text-pink-600 font-bold drop-shadow-[0_1px_1px_rgba(255,255,255,1)]">
+                    Я безумно тебя люблю.<br>
+                    Твой Умар. ❤️
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция для создания фоновых сердечек
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // Массив красивых оттенков розового
+            const colors = ['#ffb6c1', '#ffc0cb', '#ff69b4', '#db7093', '#f8c8dc'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Используем SVG сердечко для красоты и производительности
+            heart.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="${randomColor}" opacity="0.7" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+            
+            // Случайные параметры анимации и позиции
+            const size = Math.random() * 1.5 + 0.5; // от 0.5x до 2x
+            heart.style.transform = `scale(${size})`;
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's'; // от 5 до 10 секунд
+            
+            document.getElementById('hearts-container').appendChild(heart);
+            
+            // Удаляем сердечко после завершения анимации, чтобы не перегружать память
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        // Запускаем создание сердечек каждые 400мс
+        setInterval(createHeart, 400);
+
+        // Создадим сразу несколько сердечек при загрузке, чтобы фон не был пустым
+        for(let i=0; i<5; i++) {
+            setTimeout(createHeart, i * 100);
+        }
+
+        // Функция открытия письма
+        function openLetter() {
+            const intro = document.getElementById('intro-screen');
+            const main = document.getElementById('main-content');
+            const paragraphs = document.querySelectorAll('.paragraph-hide');
+
+            // Скрываем стартовый экран
+            intro.classList.add('fade-out');
+
+            // Показываем основной экран с небольшой задержкой
+            setTimeout(() => {
+                intro.style.display = 'none'; // Убираем из DOM потока
+                main.classList.add('fade-in');
+                
+                // Поэтапно показываем абзацы для красивого эффекта чтения
+                paragraphs.forEach((p, index) => {
+                    setTimeout(() => {
+                        p.classList.add('paragraph-show');
+                    }, 500 + (index * 800)); // Каждый следующий абзац появляется на 800мс позже
+                });
+
+            }, 800);
+        }
+    </script>
+</body>
+</html>
