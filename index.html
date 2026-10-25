@@ -4,753 +4,1377 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yoongi, My Universe 💜</title>
+<meta name="theme-color" content="#241633">
+<title>Yoongi Universe 💜 For Yasmina</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap');
 
 :root {
-  --lavender: #c8a9ff;
-  --purple: #8c63c9;
-  --pink: #ffb9d5;
-  --cream: #fff8ff;
-  --dark: #261b3b;
+  --bg: #160f25;
+  --bg2: #261738;
+  --panel: rgba(255,255,255,.065);
+  --border: rgba(220,187,255,.17);
+  --purple: #bd91ff;
+  --pink: #f3b8e4;
+  --text: #fff5ff;
+  --muted: #c4b1d7;
+  --glow: rgba(173,110,255,.22);
+}
+
+body.light {
+  --bg: #f9f0ff;
+  --bg2: #eee0ff;
+  --panel: rgba(255,255,255,.75);
+  --border: rgba(139,87,180,.2);
+  --purple: #8653bb;
+  --pink: #d97cb9;
+  --text: #362345;
+  --muted: #826b96;
+  --glow: rgba(173,110,255,.15);
 }
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 85px; }
 
 body {
   margin: 0;
-  color: var(--dark);
-  font-family: 'Comfortaa', sans-serif;
+  color: var(--text);
+  font-family: Comfortaa, sans-serif;
   background:
-    radial-gradient(ellipse at top, #e9d9ff, transparent 55%),
-    linear-gradient(160deg, #fff4fb, #eee5ff 48%, #fce6f4);
+    radial-gradient(ellipse at 50% -10%, #583576 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 40%, #34204a 0%, transparent 45%),
+    var(--bg);
+  transition: background .5s, color .5s;
   overflow-x: hidden;
 }
 
-button { font-family: inherit; }
+body.light {
+  background:
+    radial-gradient(ellipse at 50% -10%, #e2c8ff 0%, transparent 55%),
+    var(--bg);
+}
 
-#stars {
+button, textarea, input, select { font: inherit; }
+button { color: inherit; }
+a { color: inherit; text-decoration: none; }
+button:focus-visible, a:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 4px;
+}
+
+#starfield, #heartfield {
   position: fixed;
   inset: 0;
-  pointer-events: none;
-  z-index: 0;
   overflow: hidden;
+  pointer-events: none;
 }
+
+#starfield { z-index: 0; }
+#heartfield { z-index: 15; }
+
+header, main, footer { position: relative; z-index: 1; }
 
 .star {
   position: absolute;
   color: white;
-  animation: twinkle 2.5s infinite alternate;
+  opacity: .4;
+  animation: twinkle 3s ease-in-out infinite alternate;
 }
 
 @keyframes twinkle {
-  from { opacity: .2; transform: scale(.7); }
-  to { opacity: 1; transform: scale(1.3); }
-}
-
-header, main, footer {
-  position: relative;
-  z-index: 1;
+  from { opacity: .15; transform: scale(.7); }
+  to { opacity: .95; transform: scale(1.25); }
 }
 
 nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 7%;
-  gap: 15px;
+  padding: 17px 6%;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  gap: 12px;
 }
 
 .logo {
-  color: #7952aa;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
+  font-size: 12px;
+  color: var(--purple);
 }
 
-nav a {
-  text-decoration: none;
-  color: #62447d;
-  font-size: 12px;
-  margin-left: 14px;
+.navlinks {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  font-size: 10px;
 }
+
+.navlinks a { opacity: .85; }
+.navlinks a:hover { color: var(--pink); }
+
+.iconbtn {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 37px;
+  height: 37px;
+  cursor: pointer;
+}
+
+main { max-width: 1100px; margin: auto; }
 
 .hero {
-  min-height: 82vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 87vh;
+  display: grid;
+  place-items: center;
   text-align: center;
-  padding: 50px 20px 80px;
+  padding: 75px 22px;
+  position: relative;
 }
 
-.hero-content { max-width: 760px; }
+.hero-content { max-width: 790px; }
 
 .moon {
-  font-size: 66px;
+  font-size: 74px;
+  filter: drop-shadow(0 0 25px #c8a1ff);
   display: inline-block;
-  filter: drop-shadow(0 0 25px #c6a2ff);
-  animation: float 4s ease-in-out infinite;
+  animation: moonfloat 5s ease-in-out infinite;
 }
 
-@keyframes float {
-  50% { transform: translateY(-12px) rotate(5deg); }
+@keyframes moonfloat {
+  50% { transform: translateY(-12px) rotate(7deg); }
 }
 
 .eyebrow {
-  color: #9b73c6;
-  font-size: 11px;
   letter-spacing: 4px;
-  margin: 24px 0;
+  font-size: 10px;
+  color: var(--purple);
+  margin: 22px 0;
 }
 
-h1, h2, h3 {
-  font-family: 'Playfair Display', serif;
-}
+h1, h2, h3 { font-family: "Playfair Display", serif; }
 
 h1 {
-  font-size: clamp(43px, 8vw, 86px);
-  line-height: 1.05;
+  font-size: clamp(45px, 9vw, 94px);
+  line-height: 1.03;
   margin: 0;
 }
 
 h1 span {
-  color: #a77ad8;
+  color: var(--pink);
   font-style: italic;
+  text-shadow: 0 0 35px var(--glow);
 }
 
 .subtitle {
-  line-height: 1.9;
-  max-width: 510px;
+  color: var(--muted);
+  max-width: 550px;
   margin: 25px auto;
-  color: #735d87;
-  font-size: 14px;
-}
-
-.btn {
-  display: inline-block;
-  border: none;
-  padding: 15px 24px;
-  margin: 7px;
-  border-radius: 50px;
-  background: linear-gradient(120deg, #b89be9, #f3b5d5);
-  color: #39264e;
-  cursor: pointer;
-  box-shadow: 0 8px 25px #b79bd544;
-  transition: .3s;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.btn:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 12px 30px #b79bd577;
-}
-
-.btn.secondary {
-  background: #ffffffa8;
-  border: 1px solid #d7bdf0;
-}
-
-section {
-  max-width: 1050px;
-  margin: auto;
-  padding: 75px 22px;
-}
-
-.section-label {
-  color: #a17bc5;
-  font-size: 10px;
-  letter-spacing: 4px;
-  text-align: center;
-}
-
-.section-title {
-  text-align: center;
-  font-size: clamp(30px, 5vw, 46px);
-  margin: 14px 0;
-}
-
-.section-desc {
-  max-width: 580px;
-  text-align: center;
-  margin: 0 auto 40px;
-  line-height: 1.9;
-  font-size: 13px;
-  color: #7c678b;
-}
-
-.glass {
-  background: #ffffff83;
-  border: 1px solid #ffffffc9;
-  border-radius: 28px;
-  box-shadow: 0 15px 45px #9670b41b;
-  backdrop-filter: blur(14px);
-}
-
-.profile {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-  align-items: center;
-}
-
-.portrait {
-  min-height: 380px;
-  border-radius: 28px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background:
-    radial-gradient(circle at 50% 30%, #f7d9f3, transparent 30%),
-    linear-gradient(145deg, #c6a8ec, #8267ae 55%, #35264f);
-  color: white;
-  text-align: center;
-}
-
-.portrait::before {
-  content: "☾";
-  position: absolute;
-  font-size: 240px;
-  opacity: .18;
-  top: 10px;
-  right: -10px;
-}
-
-.portrait-text {
-  position: relative;
-  padding: 25px;
-}
-
-.portrait-text .big {
-  font-family: 'Playfair Display', serif;
-  font-size: 65px;
-  font-style: italic;
-}
-
-.portrait-text p {
-  letter-spacing: 4px;
-  font-size: 10px;
-}
-
-.profile-info { padding: 32px; }
-
-.profile-info h3 {
-  font-size: 32px;
-  margin-top: 0;
-}
-
-.profile-info p {
-  color: #776585;
   font-size: 13px;
   line-height: 2;
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 22px;
+.btn {
+  border: 1px solid transparent;
+  border-radius: 50px;
+  padding: 14px 21px;
+  background: linear-gradient(115deg, #a980e8, #ecafd8);
+  color: #29173d;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 8px 25px var(--glow);
+  margin: 5px;
 }
 
-.tag {
-  background: #f0e5ff;
-  border-radius: 30px;
-  padding: 10px 13px;
-  font-size: 10px;
-  color: #745294;
+.btn:hover { transform: translateY(-3px); box-shadow: 0 10px 35px var(--glow); }
+
+.btn.secondary {
+  color: var(--text);
+  background: var(--panel);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+section { padding: 65px 24px; }
+
+.section-label {
+  color: var(--purple);
+  letter-spacing: 4px;
+  text-align: center;
+  font-size: 9px;
+}
+
+.section-title {
+  font-size: clamp(30px, 5vw, 47px);
+  text-align: center;
+  margin: 15px 0;
+}
+
+.section-desc {
+  color: var(--muted);
+  max-width: 600px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 2;
+  margin: 0 auto 36px;
+}
+
+.glass {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 25px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 20px 65px rgba(0,0,0,.09);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 17px;
 }
 
-.fact {
-  padding: 25px;
-  transition: .3s;
+.card { padding: 25px; transition: .3s; }
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--purple);
 }
 
-.fact:hover {
-  transform: translateY(-6px) rotate(-1deg);
-}
+.card .emoji { font-size: 29px; }
 
-.fact .emoji { font-size: 28px; }
+.card h3 { font-size: 22px; margin-bottom: 10px; }
 
-.fact h3 { font-size: 21px; }
-
-.fact p {
+.card p, .bodytext {
+  color: var(--muted);
   font-size: 12px;
-  line-height: 1.9;
-  color: #7b6888;
-}
-
-.love-card {
-  text-align: center;
-  padding: 50px 22px;
-}
-
-.counter {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(60px, 10vw, 95px);
-  color: #a477d0;
-  margin: 15px 0;
-  transition: .2s;
-}
-
-.love-note {
-  max-width: 510px;
-  min-height: 55px;
-  margin: 20px auto;
-  line-height: 1.9;
-  color: #785f8c;
-  font-size: 13px;
-}
-
-.letter {
-  padding: 35px;
-  max-width: 720px;
-  margin: auto;
-}
-
-.letter h3 {
-  font-size: 30px;
-  color: #9167b9;
-}
-
-.letter p {
   line-height: 2;
-  font-size: 13px;
-  color: #735f82;
 }
 
-.diary {
-  max-width: 650px;
-  margin: auto;
-  padding: 30px;
+.profile {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 22px;
+}
+
+.portrait {
+  min-height: 390px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 50% 30%, #c7a4ff, transparent 24%),
+    radial-gradient(circle at 70% 80%, #a45cbe, transparent 35%),
+    linear-gradient(145deg, #49315f, #171124);
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.portrait::before {
+  content: "✦  ·  ☾  ·  ✧  ·  ♡";
+  position: absolute;
+  inset: 20px;
+  font-size: 25px;
+  letter-spacing: 15px;
+  line-height: 3;
+  opacity: .25;
+  overflow: hidden;
+}
+
+.portrait-content { position: relative; }
+
+.portrait-name {
+  font: italic clamp(43px, 6vw, 70px) "Playfair Display", serif;
+  color: #fff1ff;
+}
+
+.portrait-caption { letter-spacing: 5px; font-size: 10px; color: #e4c9ff; }
+
+.info { padding: 30px; }
+
+.info h3 { font-size: 31px; margin-top: 0; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+.tag {
+  background: var(--glow);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 9px 12px;
+  font-size: 10px;
+}
+
+.center { text-align: center; }
+
+.lovebox { padding: 35px 20px; text-align: center; }
+
+.infinity {
+  font: clamp(75px, 12vw, 115px) "Playfair Display", serif;
+  color: var(--pink);
+  text-shadow: 0 0 40px var(--glow);
+  margin: 8px 0;
+}
+
+.lovebar {
+  max-width: 400px;
+  height: 9px;
+  background: var(--glow);
+  border-radius: 20px;
+  margin: 25px auto;
+  overflow: hidden;
+}
+
+.lovefill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #a980e8, #f5b4e0);
+  border-radius: 20px;
+  animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+  from { filter: brightness(.85); }
+  to { filter: brightness(1.4); }
+}
+
+.bigmessage {
+  min-height: 58px;
+  max-width: 620px;
+  margin: 20px auto;
+  line-height: 2;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.quote {
+  padding: 32px;
   text-align: center;
 }
 
-textarea {
-  width: 100%;
-  min-height: 125px;
-  resize: vertical;
-  padding: 18px;
-  border: 1px solid #e0c9f0;
-  background: #fffaff;
-  border-radius: 18px;
-  font-family: inherit;
-  color: var(--dark);
-  outline: none;
+.quote blockquote {
+  font: italic clamp(21px, 4vw, 31px) "Playfair Display", serif;
   line-height: 1.7;
+  margin: 18px 0;
 }
 
-textarea:focus { border-color: #ad83db; }
+.quote small { color: var(--purple); font-size: 10px; }
 
-#savedMessage {
+textarea, input, select {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 15px;
+  color: var(--text);
+  outline: none;
   font-size: 12px;
-  color: #8963a7;
   line-height: 1.8;
 }
 
-footer {
+textarea { min-height: 125px; resize: vertical; }
+
+input::placeholder, textarea::placeholder { color: var(--muted); }
+
+.formrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.formrow > * { flex: 1; }
+
+.letter { padding: 30px; }
+
+.letter h3 { color: var(--pink); font-size: 29px; }
+
+.letter p { line-height: 2.1; font-size: 12px; color: var(--muted); }
+
+.envelope {
+  max-width: 600px;
+  margin: auto;
   text-align: center;
-  padding: 45px 20px;
+  padding: 35px 22px;
+}
+
+.envelope-icon {
+  font-size: 65px;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform .4s;
+}
+
+.envelope-icon:hover { transform: rotate(-8deg) scale(1.1); }
+
+.hidden-content { display: none; }
+.hidden-content.show { display: block; animation: appear .6s ease; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.jar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.wish {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--panel);
+  padding: 17px;
+  text-align: left;
+  cursor: pointer;
   font-size: 11px;
-  line-height: 2;
-  color: #896e9d;
+  line-height: 1.8;
 }
 
-.heart {
+.wish:hover { border-color: var(--pink); }
+
+.wish span { display: block; font-size: 24px; margin-bottom: 8px; }
+
+.musicitem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 17px;
+  margin: 10px 0;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  background: var(--panel);
+}
+
+.musicitem .emoji { font-size: 27px; }
+
+.musicitem p { margin: 5px 0; font-size: 10px; color: var(--muted); }
+
+.musicitem strong { font-size: 12px; }
+
+.mood {
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 13px;
+  background: var(--panel);
+  cursor: pointer;
+  flex: 1;
+  min-width: 85px;
+}
+
+.mood.active { border-color: var(--pink); background: var(--glow); }
+
+.moodresult { min-height: 70px; line-height: 2; color: var(--muted); font-size: 12px; }
+
+footer {
+  padding: 55px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 2.2;
+}
+
+.toast {
   position: fixed;
-  bottom: -30px;
-  z-index: 10;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  z-index: 80;
+  padding: 14px 22px;
+  border-radius: 50px;
+  background: #bd91ff;
+  color: #241633;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0;
   pointer-events: none;
-  animation: rise 3.8s ease-out forwards;
+  transition: .3s;
+  text-align: center;
+  width: max-content;
+  max-width: 90vw;
 }
 
-@keyframes rise {
-  0% { transform: translateY(0) rotate(0); opacity: 0; }
-  15% { opacity: 1; }
-  100% { transform: translateY(-105vh) rotate(35deg); opacity: 0; }
-}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
 
 .modal {
   display: none;
   position: fixed;
+  z-index: 70;
   inset: 0;
-  z-index: 20;
-  background: #21152dcc;
+  background: rgba(10,5,20,.82);
   padding: 20px;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(9px);
 }
 
 .modal.open { display: flex; }
 
-.modal-content {
-  max-width: 430px;
+.modalinner {
+  max-width: 460px;
   width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 28px;
   padding: 35px 25px;
   text-align: center;
-  background: #fff6ff;
-  border-radius: 28px;
-  animation: pop .35s ease-out;
+  animation: appear .35s;
 }
 
-@keyframes pop {
-  from { transform: scale(.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+.modalinner h3 { font-size: 29px; }
+.modalinner p { color: var(--muted); font-size: 12px; line-height: 2; }
+
+.floating-heart {
+  position: absolute;
+  bottom: -50px;
+  animation: floatup linear forwards;
+  filter: drop-shadow(0 0 8px #a96aff);
+  user-select: none;
 }
 
-.modal-content h3 { font-size: 30px; }
-
-.modal-content p {
-  line-height: 1.9;
-  font-size: 13px;
-  color: #80668e;
+@keyframes floatup {
+  0% { transform: translateY(0) rotate(0) scale(.6); opacity: 0; }
+  12% { opacity: .95; }
+  100% { transform: translateY(-115vh) rotate(45deg) scale(1.3); opacity: 0; }
 }
 
-@media(max-width: 700px) {
-  nav { padding: 20px; }
-  nav a { margin-left: 7px; font-size: 10px; }
+@media (max-width: 720px) {
+  nav { padding: 13px 4%; }
+  .navlinks { gap: 10px; }
+  .navlinks a { font-size: 9px; }
+  .logo { font-size: 9px; letter-spacing: 0; }
   .profile { grid-template-columns: 1fr; }
-  .portrait { min-height: 290px; }
+  .portrait { min-height: 280px; }
   .grid { grid-template-columns: 1fr; }
-  section { padding: 55px 18px; }
-  .profile-info { padding: 25px; }
+  .jar { grid-template-columns: 1fr; }
+  section { padding: 48px 17px; }
+  .info, .letter { padding: 23px; }
+  .hero { min-height: 80vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
 }
 </style>
 </head>
 
 <body>
-<div id="stars"></div>
+
+<div id="starfield"></div>
+<div id="heartfield"></div>
 
 <header>
-  <nav>
-    <div class="logo">♡ YOONGI WORLD</div>
-    <div>
-      <a href="#about">О нём</a>
-      <a href="#love">Любовь</a>
-      <a href="#letter">Письмо</a>
-    </div>
-  </nav>
+<nav>
+  <a class="logo" href="#home">♡ YASMINA'S UNIVERSE</a>
+  <div class="navlinks">
+    <a href="#about">Юнги</a>
+    <a href="#love">Любовь</a>
+    <a href="#diary">Дневник</a>
+    <button class="iconbtn" id="themeBtn" aria-label="Сменить тему" onclick="toggleTheme()">☾</button>
+  </div>
+</nav>
 </header>
 
 <main>
-  <div class="hero">
-    <div class="hero-content">
-      <div class="moon">☾</div>
-      <div class="eyebrow">A LITTLE UNIVERSE FOR YOONGI</div>
-      <h1>My love,<br><span>Min Yoongi.</span></h1>
-      <p class="subtitle">
-        Среди миллиардов звёзд есть одна особенная.
-        И для кого-то этой звездой всегда будет он. 💜
+
+<!-- ГЛАВНЫЙ ЭКРАН -->
+<section class="hero" id="home">
+<div class="hero-content">
+  <div class="moon">☾</div>
+  <div class="eyebrow">A UNIVERSE CREATED WITH LOVE</div>
+  <h1>Dear <span>Yoongi.</span><br>Love, Yasmina.</h1>
+  <p class="subtitle">
+    Для человека, чья музыка может стать целой вселенной.
+    Для Юнги — от Ясмины, особенной ARMY с огромным сердцем. 💜
+  </p>
+  <button class="btn" onclick="startMagic()">Открыть мою вселенную ♡</button>
+  <button class="btn secondary" onclick="openModal('secretModal')">У меня есть секрет ✨</button>
+  <div style="margin-top:36px;color:var(--muted);font-size:10px;letter-spacing:2px">
+    SCROLL TO EXPLORE · ↓
+  </div>
+</div>
+</section>
+
+<!-- О ЮНГИ -->
+<section id="about">
+  <div class="section-label">THE ONE AND ONLY</div>
+  <h2 class="section-title">Мой любимый Юнги</h2>
+  <p class="section-desc">
+    Иногда один артист занимает особое место в сердце.
+    Эта страница — маленький мир Ясмины, посвящённый её любимой музыке.
+  </p>
+
+  <div class="profile">
+    <div class="portrait">
+      <div class="portrait-content">
+        <div style="font-size:45px">☾ ✦ ♡</div>
+        <div class="portrait-name">Min Yoongi</div>
+        <div class="portrait-caption">SUGA · AGUST D · BTS</div>
+        <div style="margin-top:25px;color:#e6caff;font-size:12px">
+          A STAR IN MY UNIVERSE
+        </div>
+      </div>
+    </div>
+
+    <div class="glass info">
+      <h3>Мин Юнги 💜</h3>
+      <p class="bodytext">
+        Мин Юнги — рэпер, автор песен и музыкальный продюсер,
+        участник BTS, известный также как SUGA и Agust D.
       </p>
-      <button class="btn" onclick="showLove()">Открыть моё сердце ♡</button>
-      <button class="btn secondary" onclick="openSurprise()">Секретный сюрприз ✨</button>
+      <p class="bodytext">
+        Его творчество соединяет разные музыкальные стили,
+        выразительные тексты и личное звучание. Для Ясмины
+        его музыка — повод мечтать, улыбаться и создавать
+        собственные тёплые воспоминания.
+      </p>
+      <div class="tags">
+        <span class="tag">💜 BTS</span>
+        <span class="tag">🎧 Music</span>
+        <span class="tag">🌙 Agust D</span>
+        <span class="tag">✨ SUGA</span>
+      </div>
+      <button class="btn" onclick="burst(25)">Послать ему звёздочки ✨</button>
     </div>
   </div>
+</section>
 
-  <section id="about">
-    <div class="section-label">THE BOY WHO SHINES</div>
-    <h2 class="section-title">Немного о Юнги</h2>
-    <p class="section-desc">
-      Иногда музыка говорит то, для чего сложно подобрать слова.
-      И именно поэтому некоторые артисты становятся такими дорогими сердцу.
+<!-- ПРИЧИНЫ -->
+<section>
+  <div class="section-label">THINGS THAT MAKE HIM SPECIAL</div>
+  <h2 class="section-title">Моё маленькое «почему»</h2>
+  <p class="section-desc">
+    Здесь можно хранить причины, по которым творчество Юнги
+    так дорого Ясмине.
+  </p>
+
+  <div class="grid">
+    <article class="glass card">
+      <div class="emoji">🎧</div>
+      <h3>Его музыка</h3>
+      <p>Песни, которые хочется переслушивать, и мелодии,
+      связанные с особыми моментами жизни.</p>
+    </article>
+    <article class="glass card">
+      <div class="emoji">🎹</div>
+      <h3>Его талант</h3>
+      <p>Способность создавать музыку и превращать идеи
+      в собственные произведения.</p>
+    </article>
+    <article class="glass card">
+      <div class="emoji">🌌</div>
+      <h3>Его вселенная</h3>
+      <p>От BTS до Agust D — разные грани артиста,
+      которые можно открывать снова и снова.</p>
+    </article>
+    <article class="glass card">
+      <div class="emoji">🐱</div>
+      <h3>Его образ</h3>
+      <p>Спокойная эстетика, узнаваемый стиль и моменты
+      с фирменным юмором.</p>
+    </article>
+    <article class="glass card">
+      <div class="emoji">💜</div>
+      <h3>Мои ARMY-моменты</h3>
+      <p>Любимые выступления, фотографии, клипы и песни,
+      которые хочется хранить в памяти.</p>
+    </article>
+    <article class="glass card">
+      <div class="emoji">🌷</div>
+      <h3>Моя история</h3>
+      <p>Быть фанаткой — значит иметь свои чувства,
+      интересы и радостные воспоминания.</p>
+    </article>
+  </div>
+</section>
+
+<!-- СЧЁТЧИК ЛЮБВИ -->
+<section id="love">
+  <div class="section-label">INFINITY HAS NO END</div>
+  <h2 class="section-title">Любовь Ясмины ∞</h2>
+  <p class="section-desc">
+    Ни один счётчик не сможет измерить чувства.
+    Но можно добавить сюда столько сердечек, сколько захочется!
+  </p>
+
+  <div class="glass lovebox">
+    <div style="font-size:35px">💜</div>
+    <div class="infinity" id="loveNumber">∞</div>
+    <h3>Моя любовь к Юнги бесконечна</h3>
+    <div class="lovebar"><div class="lovefill"></div></div>
+    <div class="bigmessage" id="loveMessage">
+      Добро пожаловать в мою маленькую вселенную.
+      Каждое сердечко — ещё одна частичка ARMY-любви. 🌙
+    </div>
+    <button class="btn" onclick="addLove()">+ Одно сердечко 💗</button>
+    <button class="btn secondary" onclick="loveStorm()">Буря любви 💜</button>
+    <div style="font-size:11px;color:var(--muted);margin-top:20px" id="loveCounter">
+      Сердечек подарено: 0
+    </div>
+  </div>
+</section>
+
+<!-- ГЕНЕРАТОР ПРИЗНАНИЙ -->
+<section id="confessions">
+  <div class="section-label">WORDS FROM MY HEART</div>
+  <h2 class="section-title">1000 способов сказать «люблю»</h2>
+  <p class="section-desc">
+    Нажимай на кнопку, чтобы открывать новые нежные признания
+    от Ясмины, посвящённые её любимому артисту.
+  </p>
+
+  <div class="glass quote">
+    <div style="font-size:32px">💌</div>
+    <blockquote id="confession">
+      «Если бы моя любовь была галактикой,
+      твоё имя сияло бы среди самых ярких звёзд».
+    </blockquote>
+    <small>♡ LITTLE LETTER FROM YASMINA ♡</small>
+    <div style="margin-top:22px">
+      <button class="btn" onclick="newConfession()">Новое признание ✨</button>
+      <button class="btn secondary" onclick="copyText('confession')">Скопировать слова ♡</button>
+    </div>
+  </div>
+</section>
+
+<!-- НАСТРОЕНИЕ -->
+<section id="mood">
+  <div class="section-label">WHAT'S IN YOUR HEART TODAY?</div>
+  <h2 class="section-title">Настроение Ясмины</h2>
+  <p class="section-desc">
+    Выбери своё настроение и получи маленькое послание
+    для этого момента.
+  </p>
+
+  <div class="glass" style="padding:25px">
+    <div class="formrow">
+      <button class="mood" onclick="setMood('happy',this)">☀️<br>Счастье</button>
+      <button class="mood" onclick="setMood('dreamy',this)">🌙<br>Мечты</button>
+      <button class="mood" onclick="setMood('soft',this)">🌷<br>Нежность</button>
+      <button class="mood" onclick="setMood('music',this)">🎧<br>Музыка</button>
+      <button class="mood" onclick="setMood('hope',this)">✨<br>Надежда</button>
+    </div>
+    <p class="moodresult center" id="moodResult">
+      Твоё настроение заслуживает собственного маленького созвездия. 💜
     </p>
+  </div>
+</section>
 
-    <div class="profile">
-      <div class="portrait">
-        <div class="portrait-text">
-          <div class="big">Min Yoongi</div>
-          <p>MIN SUGA · AGUST D</p>
-          <div style="font-size:34px;margin-top:20px">☾ ♡ ✧</div>
-        </div>
-      </div>
+<!-- СЕКРЕТНЫЙ КОНВЕРТ -->
+<section>
+  <div class="section-label">ONLY FOR YASMINA</div>
+  <h2 class="section-title">Письмо внутри конверта</h2>
+  <p class="section-desc">
+    Есть один маленький сюрприз, который открывается
+    только после нажатия.
+  </p>
 
-      <div class="profile-info glass">
-        <h3>Мин Юнги 💜</h3>
-        <p>
-          Мин Юнги — южнокорейский рэпер, автор песен и продюсер,
-          участник группы BTS, также известный под именами SUGA и Agust D.
-        </p>
-        <p>
-          Его творчество объединяет рэп, мелодичность и искренние
-          размышления о жизни. Для многих поклонников его музыка
-          становится источником вдохновения и поддержки.
-        </p>
-        <div class="tags">
-          <span class="tag">🎧 Музыка</span>
-          <span class="tag">🌙 Ночная атмосфера</span>
-          <span class="tag">💜 BTS</span>
-          <span class="tag">✨ Agust D</span>
-        </div>
+  <div class="glass envelope">
+    <div class="envelope-icon" onclick="openLetter()" role="button" tabindex="0"
+      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLetter()}">
+      💌
+    </div>
+    <h3>Дорогая Ясмина…</h3>
+    <p class="bodytext">У тебя есть секретное послание.</p>
+    <button class="btn" onclick="openLetter()">Открыть конверт ♡</button>
+
+    <div class="hidden-content" id="secretLetter">
+      <div class="letter" style="margin-top:25px;text-align:left">
+        <h3>Для самой особенной ARMY 💜</h3>
+        <p>Ясмина, у каждого человека есть маленькие вещи,
+        которые делают его дни ярче. Для тебя одной из таких
+        вещей может быть музыка Юнги.</p>
+        <p>Пусть любимые песни сопровождают тебя в счастливые
+        моменты, помогают мечтать и вдохновляют на собственные
+        красивые истории.</p>
+        <p>Ты можешь быть особенной поклонницей и одновременно
+        оставаться главной героиней собственной жизни.</p>
+        <p style="text-align:right">С теплом и фиолетовыми сердечками,<br>
+        твоя маленькая вселенная ♡</p>
+        <button class="btn" onclick="burst(40)">Наполнить письмо сердечками 💜</button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <div class="section-label">LITTLE THINGS WE ADORE</div>
-    <h2 class="section-title">Почему он особенный?</h2>
-    <p class="section-desc">
-      У каждого человека есть свои причины любить любимого артиста.
-      Вот несколько вещей, которыми поклонники могут восхищаться в Юнги.
-    </p>
+<!-- БАНОЧКА ЖЕЛАНИЙ -->
+<section id="wishes">
+  <div class="section-label">A JAR FULL OF DREAMS</div>
+  <h2 class="section-title">Баночка желаний ✨</h2>
+  <p class="section-desc">
+    Нажми на любую карточку. Каждая хранит маленькое пожелание,
+    вдохновение или ARMY-сюрприз.
+  </p>
 
-    <div class="grid">
-      <div class="fact glass">
-        <div class="emoji">🎹</div>
-        <h3>Его талант</h3>
-        <p>Музыкант, который пишет, создаёт и продюсирует музыку,
-        превращая идеи в целые миры.</p>
+  <div class="jar">
+    <button class="wish" onclick="revealWish(0)"><span>🌷</span>Открыть желание № 1</button>
+    <button class="wish" onclick="revealWish(1)"><span>🌙</span>Открыть желание № 2</button>
+    <button class="wish" onclick="revealWish(2)"><span>💜</span>Открыть желание № 3</button>
+    <button class="wish" onclick="revealWish(3)"><span>⭐</span>Открыть желание № 4</button>
+    <button class="wish" onclick="revealWish(4)"><span>🎧</span>Открыть желание № 5</button>
+    <button class="wish" onclick="revealWish(5)"><span>🦋</span>Открыть желание № 6</button>
+  </div>
+  <div class="glass center" style="padding:25px;margin-top:17px">
+    <div id="wishResult" class="bodytext">Твоё следующее послание ждёт тебя здесь…</div>
+  </div>
+</section>
+
+<!-- МУЗЫКАЛЬНЫЙ УГОЛОК -->
+<section id="music">
+  <div class="section-label">MUSIC IS MY LITTLE UNIVERSE</div>
+  <h2 class="section-title">Музыкальный уголок 🎧</h2>
+  <p class="section-desc">
+    Выбери альбом или песню, которую хочешь послушать.
+    Кнопки открывают поиск музыки на YouTube.
+  </p>
+
+  <div class="glass" style="padding:20px">
+    <div class="musicitem">
+      <div class="emoji">🌙</div>
+      <div style="flex:1">
+        <strong>People</strong>
+        <p>Agust D · D-2</p>
       </div>
-      <div class="fact glass">
-        <div class="emoji">🌌</div>
-        <h3>Его музыка</h3>
-        <p>Песни и тексты, в которых поклонники находят
-        собственные чувства, мысли и надежды.</p>
-      </div>
-      <div class="fact glass">
-        <div class="emoji">🐱</div>
-        <h3>Его вайб</h3>
-        <p>Спокойная эстетика, сдержанный юмор и образ,
-        который так узнаваем среди поклонников.</p>
-      </div>
-      <div class="fact glass">
-        <div class="emoji">🎤</div>
-        <h3>SUGA</h3>
-        <p>Его творческая сторона в BTS — часть истории
-        группы, которую любят миллионы людей.</p>
-      </div>
-      <div class="fact glass">
-        <div class="emoji">🖤</div>
-        <h3>Agust D</h3>
-        <p>Сольный проект с ярким звучанием и собственной
-        музыкальной индивидуальностью.</p>
-      </div>
-      <div class="fact glass">
-        <div class="emoji">💜</div>
-        <h3>Своя история</h3>
-        <p>У каждого ARMY есть любимые песни, воспоминания
-        и моменты, связанные с BTS.</p>
-      </div>
+      <button class="btn" onclick="searchMusic('Agust D People official audio')">Слушать ↗</button>
     </div>
-  </section>
 
-  <section id="love">
-    <div class="section-label">INFINITE PURPLE HEART</div>
-    <h2 class="section-title">Любовь без границ</h2>
-    <p class="section-desc">
-      Для моей сестры — потому что некоторые чувства
-      хочется выразить целой галактикой.
-    </p>
-
-    <div class="love-card glass">
-      <div style="font-size:40px">💜</div>
-      <div class="counter" id="counter">∞</div>
-      <h3 style="font-size:25px">Вселенная не измерит эту любовь</h3>
-      <p class="love-note" id="loveNote">
-        Нажми на сердечко, чтобы наполнить этот мир
-        ещё одной частичкой любви к Юнги.
-      </p>
-      <button class="btn" onclick="addLove()">Добавить любовь 💗</button>
-      <button class="btn secondary" onclick="resetLove()">Начать заново ↻</button>
-      <div id="loveCount" style="font-size:11px;color:#a184b6;margin-top:20px">
-        Собрано сердечек: 0
+    <div class="musicitem">
+      <div class="emoji">🌌</div>
+      <div style="flex:1">
+        <strong>Daechwita</strong>
+        <p>Agust D · D-2</p>
       </div>
+      <button class="btn" onclick="searchMusic('Agust D Daechwita official MV')">Слушать ↗</button>
     </div>
-  </section>
 
-  <section id="letter">
-    <div class="section-label">A LETTER FROM THE HEART</div>
-    <h2 class="section-title">Маленькое письмо</h2>
-
-    <div class="letter glass">
-      <h3>Дорогой Юнги… 🌙</h3>
-      <p>
-        Возможно, ты никогда не узнаешь, сколько людей улыбаются,
-        услышав твоё имя, или находят утешение в твоей музыке.
-      </p>
-      <p>
-        Но где-то в этом большом мире есть люди, для которых
-        твои песни стали частью важных воспоминаний, мечтаний
-        и обычных дней.
-      </p>
-      <p>
-        Спасибо за музыку, за творчество и за эмоции,
-        которые она дарит слушателям.
-      </p>
-      <p style="text-align:right;font-family:'Playfair Display',serif;font-style:italic">
-        С любовью, одна из ARMY 💜
-      </p>
+    <div class="musicitem">
+      <div class="emoji">🖤</div>
+      <div style="flex:1">
+        <strong>Haegeum</strong>
+        <p>Agust D · D-DAY</p>
+      </div>
+      <button class="btn" onclick="searchMusic('Agust D Haegeum official MV')">Слушать ↗</button>
     </div>
-  </section>
 
-  <section>
-    <div class="section-label">YOUR LITTLE DIARY</div>
-    <h2 class="section-title">Дневник ARMY ✍️</h2>
-    <p class="section-desc">
-      Запиши любимую песню, особенное воспоминание
-      или слова, которые хочется посвятить Юнги.
-    </p>
+    <div class="musicitem">
+      <div class="emoji">💜</div>
+      <div style="flex:1">
+        <strong>Trivia: Seesaw</strong>
+        <p>BTS · Love Yourself 結 'Answer'</p>
+      </div>
+      <button class="btn" onclick="searchMusic('BTS SUGA Trivia Seesaw official audio')">Слушать ↗</button>
+    </div>
+  </div>
+  <p class="bodytext center">Музыка откроется на YouTube. На сайте нет встроенного аудио.</p>
+</section>
 
-    <div class="diary glass">
-      <textarea id="diaryText"
-        placeholder="Моя любимая песня Юнги — ...&#10;Я люблю её, потому что ..."></textarea>
-      <br>
+<!-- ДНЕВНИК -->
+<section id="diary">
+  <div class="section-label">MY PRIVATE ARMY DIARY</div>
+  <h2 class="section-title">Дневник Ясмины 📖</h2>
+  <p class="section-desc">
+    Сохрани мысли, любимые песни, воспоминания или письмо,
+    которое ты когда-нибудь хотела бы написать.
+  </p>
+
+  <div class="glass" style="padding:25px">
+    <label for="diaryTitle" class="bodytext">Название записи</label>
+    <input id="diaryTitle" maxlength="100" placeholder="Например: Мой любимый момент 💜">
+    <div style="height:14px"></div>
+    <label for="diaryText" class="bodytext">Твои мысли</label>
+    <textarea id="diaryText" maxlength="10000" placeholder="Сегодня я хочу написать о..."></textarea>
+    <div style="margin-top:15px">
       <button class="btn" onclick="saveDiary()">Сохранить запись ♡</button>
-      <button class="btn secondary" onclick="loadDiary()">Открыть запись 📖</button>
-      <p id="savedMessage"></p>
+      <button class="btn secondary" onclick="loadDiary()">Загрузить запись 📖</button>
+      <button class="btn secondary" onclick="downloadDiary()">Скачать дневник ↓</button>
     </div>
-  </section>
+    <p class="bodytext" id="diaryStatus" aria-live="polite"></p>
+    <p class="bodytext">Записи сохраняются в локальном хранилище этого браузера. Это не облачная синхронизация.</p>
+  </div>
+</section>
+
+<!-- ГЕНЕРАТОР ПИСЕМ -->
+<section id="lettermaker">
+  <div class="section-label">CREATE YOUR OWN LETTER</div>
+  <h2 class="section-title">Письмо от Ясмины 💌</h2>
+  <p class="section-desc">
+    Введи своё имя, выбери настроение и создай красивое
+    признание в любви к творчеству Юнги.
+  </p>
+
+  <div class="glass" style="padding:25px">
+    <label class="bodytext" for="senderName">От кого?</label>
+    <input id="senderName" maxlength="60" value="Ясмина" placeholder="Твоё имя">
+
+    <div style="height:14px"></div>
+
+    <label class="bodytext" for="letterStyle">Стиль письма</label>
+    <select id="letterStyle">
+      <option value="soft">Нежное и милое 🌷</option>
+      <option value="cosmic">Космическое 🌌</option>
+      <option value="poetic">Поэтичное 🌙</option>
+      <option value="fan">Послание от ARMY 💜</option>
+    </select>
+
+    <div style="margin-top:17px">
+      <button class="btn" onclick="makeLetter()">Создать письмо ✨</button>
+    </div>
+
+    <div class="letter glass" style="margin-top:20px">
+      <div id="generatedLetter" class="bodytext">
+        Твоё письмо появится здесь после нажатия на кнопку…
+      </div>
+      <button class="btn secondary" onclick="copyGenerated()">Скопировать письмо ♡</button>
+    </div>
+  </div>
+</section>
+
+<!-- ФИНАЛ -->
+<section class="center">
+  <div class="section-label">ONE LAST LITTLE THING</div>
+  <h2 class="section-title">И напоследок…</h2>
+  <p class="section-desc">
+    Пусть эта маленькая вселенная напоминает Ясмине:
+    можно восхищаться своим кумиром, радоваться музыке
+    и при этом создавать собственную прекрасную историю.
+  </p>
+  <button class="btn" onclick="finalMagic()">Создать галактику любви 💜</button>
+</section>
+
 </main>
 
 <footer>
-  <div style="font-size:25px">☾ ♡ ☁</div>
-  Made with love for a special ARMY 💜<br>
-  A fan-made tribute to Min Yoongi of BTS.<br>
-  <span style="opacity:.7">Not an official BTS website.</span>
+  <div style="font-size:35px">☾ ♡ ✦</div>
+  <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--pink)">
+    Made for Yasmina with love.
+  </div>
+  <p>A little universe dedicated to Min Yoongi of BTS.</p>
+  <p>Fan-made tribute · Not an official BTS website.</p>
+  <button class="btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    Вернуться к звёздам ↑
+  </button>
 </footer>
 
-<div class="modal" id="surprise" onclick="closeOutside(event)">
-  <div class="modal-content">
-    <div style="font-size:48px">💌</div>
-    <h3>Эй, маленькая ARMY!</h3>
+<!-- СЕКРЕТНОЕ МОДАЛЬНОЕ ОКНО -->
+<div class="modal" id="secretModal" onclick="if(event.target===this)closeModal('secretModal')">
+  <div class="modalinner">
+    <div style="font-size:50px">💜</div>
+    <h3>Секрет Ясмины</h3>
     <p>
-      Ты можешь любить музыку, восхищаться талантом
-      и хранить тёплые чувства к своему кумиру.
-      Твоя любовь к творчеству — часть твоей собственной истории.
+      Знаешь, что делает эту вселенную особенной?
+      Не количество звёзд и не красота анимаций.
+      А то, что она создана с любовью специально для тебя.
     </p>
-    <p>
-      Пусть песни Юнги приносят тебе вдохновение,
-      уют и много счастливых моментов. 💜
-    </p>
-    <button class="btn" onclick="closeSurprise()">Обнимаю сердцем ♡</button>
+    <p>Пусть в твоей жизни будет много музыки, доброты,
+    счастливых воспоминаний и маленьких чудес. 🌙</p>
+    <button class="btn" onclick="closeModal('secretModal');burst(35)">
+      Принять сердечки ♡
+    </button>
   </div>
 </div>
 
-<script>
-// Звёздное небо
-const starField = document.getElementById('stars');
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-for (let i = 0; i < 85; i++) {
-  const star = document.createElement('span');
-  star.className = 'star';
-  star.textContent = Math.random() > .5 ? '✦' : '·';
-  star.style.left = Math.random() * 100 + '%';
-  star.style.top = Math.random() * 100 + '%';
-  star.style.fontSize = (8 + Math.random() * 12) + 'px';
-  star.style.animationDelay = Math.random() * 3 + 's';
-  starField.appendChild(star);
+<script>
+// ==============================
+// ЗВЁЗДЫ И ПЛАВАЮЩИЕ СЕРДЕЧКИ
+// ==============================
+
+const starfield = document.getElementById('starfield');
+const heartfield = document.getElementById('heartfield');
+
+for (let i = 0; i < 95; i++) {
+  const s = document.createElement('span');
+  s.className = 'star';
+  s.textContent = Math.random() > .5 ? '✦' : '·';
+  s.style.left = Math.random() * 100 + '%';
+  s.style.top = Math.random() * 100 + '%';
+  s.style.fontSize = (7 + Math.random() * 13) + 'px';
+  s.style.animationDelay = Math.random() * 4 + 's';
+  starfield.appendChild(s);
 }
 
-// Сердечки
-function burstHearts(amount = 24) {
-  const symbols = ['💜', '♡', '💗', '✨', '💕'];
+// Фоновые сердечки автоматически
+function floatingHeart() {
+  const h = document.createElement('span');
+  h.className = 'floating-heart';
+  h.textContent = ['💜','♡','♥','💗','✧'][Math.floor(Math.random()*5)];
+  h.style.left = Math.random() * 100 + '%';
+  h.style.fontSize = (13 + Math.random() * 20) + 'px';
+  h.style.animationDuration = (8 + Math.random() * 8) + 's';
+  h.style.opacity = '.5';
+  heartfield.appendChild(h);
+  setTimeout(() => h.remove(), 17000);
+}
+
+setInterval(floatingHeart, 850);
+
+// Большой всплеск сердечек
+function burst(amount = 25) {
+  const symbols = ['💜','💜','♡','💗','✨','💕','♥'];
 
   for (let i = 0; i < amount; i++) {
     setTimeout(() => {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (16 + Math.random() * 22) + 'px';
-      heart.style.animationDuration = (2.5 + Math.random() * 2) + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }, i * 45);
+      const h = document.createElement('span');
+      h.className = 'floating-heart';
+      h.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      h.style.left = (5 + Math.random() * 90) + '%';
+      h.style.fontSize = (18 + Math.random() * 27) + 'px';
+      h.style.animationDuration = (3 + Math.random() * 3) + 's';
+      heartfield.appendChild(h);
+      setTimeout(() => h.remove(), 6500);
+    }, i * 35);
   }
 }
 
-function showLove() {
-  burstHearts(38);
-  document.getElementById('loveNote').textContent =
-    'Пусть твоя любовь к музыке всегда приносит тебе радость, ' +
-    'вдохновение и прекрасные воспоминания. 💜';
-
-  document.getElementById('love').scrollIntoView({ behavior: 'smooth' });
+function startMagic() {
+  burst(45);
+  document.getElementById('loveMessage').textContent =
+    'Ясмина, добро пожаловать! Пусть твоя вселенная будет наполнена музыкой, мечтами и фиолетовыми сердцами. 💜';
+  document.getElementById('about').scrollIntoView({behavior:'smooth'});
+  toast('Добро пожаловать в Yoongi Universe 💜');
 }
 
-function openSurprise() {
-  document.getElementById('surprise').classList.add('open');
-  burstHearts(18);
+function loveStorm() {
+  burst(100);
+  toast('Целая галактика сердечек для Ясмины! 💜');
 }
 
-function closeSurprise() {
-  document.getElementById('surprise').classList.remove('open');
-}
+// ==============================
+// СЧЁТЧИК ЛЮБВИ
+// ==============================
 
-function closeOutside(event) {
-  if (event.target.id === 'surprise') closeSurprise();
-}
+let loveCount = 0;
 
-// Счётчик сердечек
-let count = 0;
-
-const notes = [
-  'Ещё одно сердечко для человека, чья музыка тебе дорога. 💜',
-  'Маленькое сердечко, большая порция ARMY-любви! 🐱',
-  'Пусть в твоём мире всегда будет место любимым песням. 🎧',
-  'Каждая песня может хранить целую историю. 🌙',
-  'Твоя личная галактика становится ярче! ✨',
-  'Любовь к искусству не нуждается в измерениях. 💗'
+const loveMessages = [
+  'Каждое сердечко — ещё один маленький знак любви к музыке. 💜',
+  'Ясмина, пусть любимые песни украшают твои дни. 🌙',
+  'Твоя ARMY-вселенная сияет всё ярче! ✨',
+  'Пусть у тебя будет много поводов улыбаться. 🌷',
+  'У любви к искусству нет необходимости в измерениях. ♡',
+  'Ещё одно сердечко — ещё одна красивая история.'
 ];
 
 function addLove() {
-  count++;
-  document.getElementById('counter').textContent = count;
-  document.getElementById('loveCount').textContent =
-    'Собрано сердечек: ' + count;
-  document.getElementById('loveNote').textContent =
-    notes[(count - 1) % notes.length];
-
-  burstHearts(12);
+  loveCount++;
+  document.getElementById('loveNumber').textContent = loveCount;
+  document.getElementById('loveCounter').textContent =
+    'Сердечек подарено: ' + loveCount;
+  document.getElementById('loveMessage').textContent =
+    loveMessages[(loveCount - 1) % loveMessages.length];
+  burst(9);
 }
 
-function resetLove() {
-  count = 0;
-  document.getElementById('counter').textContent = '∞';
-  document.getElementById('loveCount').textContent =
-    'Собрано сердечек: 0';
-  document.getElementById('loveNote').textContent =
-    'Любовь не нужно считать — пусть она остаётся бесконечной. 💜';
+// ==============================
+// ГЕНЕРАТОР ПРИЗНАНИЙ
+// ==============================
+
+const confessions = [
+  'Если бы моя любовь была галактикой, твоё имя сияло бы среди самых ярких звёзд.',
+  'Есть песни, которые заканчиваются, но чувства и воспоминания после них остаются.',
+  'В моём маленьком мире всегда найдётся место для музыки, которая делает меня счастливее.',
+  'Если бы звёзды умели петь, я бы выбрала для них мелодию, которая напоминает мне о твоём творчестве.',
+  'Ты можешь не знать моего имени, но твоя музыка уже стала частью моей истории.',
+  'Моё самое любимое созвездие сегодня состоит из фиолетовых сердечек.',
+  'Некоторые мелодии похожи на письма, которые понимаешь без единого объяснения.',
+  'Пусть музыка всегда напоминает мне, что в мире есть место красоте и вдохновению.',
+  'Я не могу подарить тебе всю вселенную, но могу посвятить тебе эту маленькую страницу.',
+  'Иногда достаточно включить любимую песню, чтобы обычный вечер стал особенным.',
+  'В моей коллекции счастливых моментов есть отдельная полочка для любимых песен.',
+  'Пусть каждый новый день приносит мне повод мечтать и улыбаться.',
+  'Ты — мой любимый артист, а я — автор собственной истории.',
+  'Если нежность можно было бы нарисовать, я бы выбрала для неё лавандовый цвет.',
+  'Моё письмо летит сквозь воображаемую галактику с миллионом маленьких сердец.',
+  'Спасибо музыке за возможность чувствовать, мечтать и находить вдохновение.',
+  'Моя любовь к твоему творчеству живёт в песнях, воспоминаниях и улыбках.',
+  'Одна мелодия, тысяча чувств и целая вселенная воспоминаний.',
+  'Пусть даже самые маленькие мечты однажды станут красивыми воспоминаниями.',
+  'Сегодня я снова выбираю музыку, фиолетовые оттенки и немного волшебства.'
+];
+
+let lastConfession = -1;
+
+function newConfession() {
+  let n;
+  do {
+    n = Math.floor(Math.random() * confessions.length);
+  } while (n === lastConfession && confessions.length > 1);
+
+  lastConfession = n;
+  document.getElementById('confession').textContent = '«' + confessions[n] + '»';
+  burst(8);
 }
 
-// Дневник сохраняется в браузере
+// ==============================
+// НАСТРОЕНИЯ
+// ==============================
+
+const moods = {
+  happy: '☀️ Ясмина, сохрани эту улыбку! Пусть сегодня будет больше моментов, которые делают тебя счастливой.',
+  dreamy: '🌙 Пусть твои мечты будут большими, а путь к ним — наполненным вдохновением и музыкой.',
+  soft: '🌷 Сегодня можно выбрать нежность, уют, любимую песню и немного времени для себя.',
+  music: '🎧 Включи любимую композицию Юнги и наслаждайся моментом. Музыка может быть прекрасной частью твоего дня.',
+  hope: '✨ Впереди ещё много историй, новых песен, интересных встреч и поводов радоваться.'
+};
+
+function setMood(key, button) {
+  document.querySelectorAll('.mood').forEach(b => b.classList.remove('active'));
+  button.classList.add('active');
+  document.getElementById('moodResult').textContent = moods[key];
+  burst(7);
+}
+
+// ==============================
+// КОНВЕРТ И МОДАЛЬНОЕ ОКНО
+// ==============================
+
+function openLetter() {
+  const letter = document.getElementById('secretLetter');
+  letter.classList.toggle('show');
+
+  if (letter.classList.contains('show')) {
+    burst(25);
+    toast('Секретное письмо открыто 💌');
+  }
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  burst(18);
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open'));
+  }
+});
+
+// ==============================
+// БАНОЧКА ЖЕЛАНИЙ
+// ==============================
+
+const wishes = [
+  '🌷 Пусть у Ясмины будет больше дней, наполненных добротой, уютом и улыбками.',
+  '🌙 Пусть любимая музыка помогает создавать красивые воспоминания.',
+  '💜 Пусть твоё увлечение всегда приносит радость, вдохновение и новые знакомства.',
+  '⭐ Пусть твои собственные мечты сияют так же ярко, как звёзды над ночным небом.',
+  '🎧 Пусть каждый день найдётся время для музыки, которую ты любишь.',
+  '🦋 Пусть у тебя хватает смелости пробовать новое и гордиться собой.'
+];
+
+function revealWish(index) {
+  document.getElementById('wishResult').textContent = wishes[index];
+  burst(8);
+}
+
+// ==============================
+// МУЗЫКА
+// ==============================
+
+function searchMusic(query) {
+  window.open(
+    'https://www.youtube.com/results?search_query=' + encodeURIComponent(query),
+    '_blank',
+    'noopener,noreferrer'
+  );
+}
+
+// ==============================
+// ДНЕВНИК
+// ==============================
+
+const DIARY_KEY = 'yasminaYoongiDiaryV1';
+
 function saveDiary() {
-  const text = document.getElementById('diaryText').value;
+  const data = {
+    title: document.getElementById('diaryTitle').value,
+    text: document.getElementById('diaryText').value
+  };
+
   try {
-    localStorage.setItem('yoongiArmyDiary', text);
-    document.getElementById('savedMessage').textContent =
+    localStorage.setItem(DIARY_KEY, JSON.stringify(data));
+    document.getElementById('diaryStatus').textContent =
       '💜 Запись сохранена в этом браузере!';
-  } catch (error) {
-    document.getElementById('savedMessage').textContent =
-      'Не удалось сохранить запись в этом браузере.';
+    toast('Твой дневник сохранён 📖');
+  } catch (e) {
+    document.getElementById('diaryStatus').textContent =
+      'Не удалось сохранить запись. Попробуй скачать её.';
   }
 }
 
 function loadDiary() {
   try {
-    const saved = localStorage.getItem('yoongiArmyDiary');
-    if (saved !== null) {
-      document.getElementById('diaryText').value = saved;
-      document.getElementById('savedMessage').textContent =
-        '📖 Твоя запись открыта!';
-    } else {
-      document.getElementById('savedMessage').textContent =
-        'Пока нет сохранённой записи. Напиши что-нибудь 💌';
+    const raw = localStorage.getItem(DIARY_KEY);
+
+    if (!raw) {
+      document.getElementById('diaryStatus').textContent =
+        'Пока нет сохранённой записи. Напиши свою первую историю 💌';
+      return;
     }
-  } catch (error) {
-    document.getElementById('savedMessage').textContent =
-      'Не удалось прочитать запись.';
+
+    const data = JSON.parse(raw);
+    document.getElementById('diaryTitle').value = data.title || '';
+    document.getElementById('diaryText').value = data.text || '';
+    document.getElementById('diaryStatus').textContent =
+      '📖 Запись загружена!';
+  } catch (e) {
+    document.getElementById('diaryStatus').textContent =
+      'Не удалось прочитать сохранённую запись.';
   }
+}
+
+function downloadDiary() {
+  const title = document.getElementById('diaryTitle').value || 'Дневник Ясмины';
+  const text = document.getElementById('diaryText').value;
+
+  if (!text.trim() && !title.trim()) {
+    toast('Сначала напиши что-нибудь в дневнике 💌');
+    return;
+  }
+
+  const blob = new Blob(
+    ['YASMINA ARMY DIARY\n\n' + title + '\n\n' + text],
+    {type:'text/plain;charset=utf-8'}
+  );
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'yasmina-army-diary.txt';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// ==============================
+// ГЕНЕРАТОР ПИСЕМ
+// ==============================
+
+function makeLetter() {
+  const rawName = document.getElementById('senderName').value.trim();
+  const name = rawName || 'Ясмина';
+  const style = document.getElementById('letterStyle').value;
+
+  const messages = {
+    soft: 'Твоя музыка стала маленьким источником радости в моей жизни. Спасибо за творчество, которое вдохновляет и помогает создавать красивые воспоминания. Пусть мир всегда будет наполнен мелодиями, мечтами и добротой.',
+    cosmic: 'Если бы мои чувства были галактикой, они сияли бы миллионами звёзд. Я отправляю это воображаемое письмо через ночное небо, окружая каждое слово фиолетовым светом. Пусть музыка продолжает соединять мечты и сердца поклонников.',
+    poetic: 'В тишине ночи мелодия становится светом, а свет превращается в воспоминание. Есть творчество, которое хочется бережно хранить в сердце. Спасибо за музыку, оставляющую место для собственных историй и мечтаний.',
+    fan: 'От одной ARMY к артисту, чьё творчество ей дорого: спасибо за песни, труд и вдохновение. Пусть у каждого поклонника будет много счастливых воспоминаний, любимых мелодий и поводов гордиться собственным путём.'
+  };
+
+  const output =
+    'Дорогой Юнги! 💜\n\n' +
+    messages[style] +
+    '\n\nС теплом и любовью к твоему творчеству,\n' +
+    name + ' ♡';
+
+  document.getElementById('generatedLetter').textContent = output;
+  burst(12);
+  toast('Твоё письмо готово 💌');
+}
+
+async function copyText(id) {
+  const text = document.getElementById(id).innerText;
+  await copyToClipboard(text);
+}
+
+async function copyGenerated() {
+  const text = document.getElementById('generatedLetter').innerText;
+
+  if (text.includes('появится здесь')) {
+    toast('Сначала создай письмо ✨');
+    return;
+  }
+
+  await copyToClipboard(text);
+}
+
+async function copyToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('Скопировано! 💜');
+  } catch (e) {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+
+    try {
+      const ok = document.execCommand('copy');
+      toast(ok ? 'Скопировано! 💜' : 'Не удалось скопировать. Выдели текст вручную.');
+    } catch (_) {
+      toast('Выдели текст и скопируй его вручную.');
+    }
+
+    area.remove();
+  }
+}
+
+// ==============================
+// ТЁМНАЯ И СВЕТЛАЯ ТЕМА
+// ==============================
+
+function toggleTheme() {
+  document.body.classList.toggle('light');
+  const isLight = document.body.classList.contains('light');
+  document.getElementById('themeBtn').textContent = isLight ? '☀' : '☾';
+
+  try {
+    localStorage.setItem('yasminaTheme', isLight ? 'light' : 'dark');
+  } catch (e) {}
+
+  toast(isLight ? 'Лавандовый рассвет ☀️' : 'Фиолетовая ночь 🌙');
+}
+
+try {
+  if (localStorage.getItem('yasminaTheme') === 'light') {
+    document.body.classList.add('light');
+    document.getElementById('themeBtn').textContent = '☀';
+  }
+} catch (e) {}
+
+// ==============================
+// ФИНАЛЬНОЕ ВОЛШЕБСТВО
+// ==============================
+
+function finalMagic() {
+  burst(120);
+
+  document.getElementById('loveMessage').textContent =
+    'Для Ясмины — тысячи воображаемых звёзд, миллионы маленьких сердечек и целая вселенная музыки, мечтаний и радости. 💜';
+
+  document.getElementById('love').scrollIntoView({behavior:'smooth'});
+  toast('Yasmina, this universe is yours! 💜');
+}
+
+// Всплывающее уведомление
+let toastTimer;
+
+function toast(message) {
+  const el = document.getElementById('toast');
+  el.textContent = message;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
 }
 </script>
 </body>
